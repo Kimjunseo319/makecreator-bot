@@ -1,0 +1,19 @@
+{
+  "name": "maker_bot",
+  "version": "1.0.0",
+  "main": "./src/app.js",
+  "author": "Kimjunseo",
+  "license": "MIT",
+  "scripts": {
+    "start": "node ./src/app.js"
+  },
+  "dependencies": {
+    "bufferutil": "^4.0.1",
+    "cheerio": "^1.0.0-rc.3",
+    "discord.js": "^12.2.0",
+    "lodash": "^4.17.19",
+    "request": "^2.88.2",
+    "school-kr": "^3.1.1",
+    "utf-8-validate": "^5.0.2"
+  }
+}
