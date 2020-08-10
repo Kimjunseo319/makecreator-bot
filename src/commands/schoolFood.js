@@ -1,6 +1,9 @@
 const request = require("request");
 const { MessageEmbed } = require("discord.js");
 const _ = require("lodash");
+const moment = require("moment");
+require("moment-timezone");
+moment.tz.setDefault("Asia/Seoul");
 
 //①-난류 ②-우유 ③-메밀 ④-땅콩 ⑤-대두 ⑥-밀 ⑦-고등어 ⑧-게 ⑨-새우 ⑩-돼지고기 ⑪-복숭아 ⑫-토마토 ⑬-아황산염
 const allergy = {
@@ -20,7 +23,7 @@ const allergy = {
 };
 
 const command = async function (message, args) {
-  const date = args[0] ? args[0] : new Date().getDate();
+  const date = args[0] ? args[0] : moment().toDate().getDate();
   let food = await getFoodInfo(date);
   console.log(food);
   const richMsg = new MessageEmbed()
