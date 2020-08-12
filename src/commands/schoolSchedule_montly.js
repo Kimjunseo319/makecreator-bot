@@ -18,6 +18,8 @@ const command = async function (message, args) {
     .setColor(0x03fcba)
     .setFooter("서울특별시교육청 제공", "https://lib.sen.go.kr/resources/homepage/common/img/ci_logo_taye3.gif");
 
+  const today = calendar["today"];
+
   delete calendar["year"];
   delete calendar["month"];
   delete calendar["day"];
@@ -26,7 +28,14 @@ const command = async function (message, args) {
   let key = 1;
 
   _.each(calendar, (c) => {
-    richMsg.addField(key + "일", c === "" ? "없음" : c, true);
+    if (today !== key) {
+      console.log("[]" + today);
+      richMsg.addField(key + "일", c === "" ? "없음" : c, true);
+    } else {
+      console.log(today);
+      richMsg.addField(key + "일(오늘)", c === "" ? "없음" : c, true);
+    }
+
     key++;
   });
 
