@@ -43,12 +43,8 @@ function getFoodInfo(date) {
   return new Promise((res, rej) => {
     const url = "https://schoolmenukr.ml/api/high/B100000587?allergy=formed&date=" + date;
     request(url, (err, response, body) => {
-<<<<<<< HEAD
-      const json = JSON.parse(body);
-=======
       if (err) rej(err);
       var json = JSON.parse(body);
->>>>>>> 728fc3e608bb034830de1daf96ccbf305756a617
       const food = json["menu"][0]["lunch"];
       res(food);
     });
