@@ -44,6 +44,7 @@ function getFoodInfo(date) {
   return new Promise((res, rej) => {
     const url = "https://schoolmenukr.ml/api/high/B100000587?allergy=formed&date=" + date;
     request(url, (err, response, body) => {
+      if (err) rej(err);
       var json = JSON.parse(body);
       const food = json["menu"][0]["lunch"];
       res(food);
