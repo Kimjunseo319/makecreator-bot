@@ -25,7 +25,6 @@ const allergy = {
 const command = async function (message, args) {
   const date = args[0] ? args[0] : moment().toDate().getDate();
   let food = await getFoodInfo(date);
-  console.log(food);
   const richMsg = new MessageEmbed()
     .setTitle(date + "일 급식 정보")
     .setColor(0x03fcba)
@@ -44,7 +43,7 @@ function getFoodInfo(date) {
   return new Promise((res, rej) => {
     const url = "https://schoolmenukr.ml/api/high/B100000587?allergy=formed&date=" + date;
     request(url, (err, response, body) => {
-      var json = JSON.parse(body);
+      const json = JSON.parse(body);
       const food = json["menu"][0]["lunch"];
       res(food);
     });

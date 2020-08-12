@@ -22,7 +22,7 @@ const command = async function (message, args) {
   const richMsg = new MessageEmbed()
     .setTitle((month ? month : moment().toDate().getMonth() + 1) + "월 " + date + "일 학사일정 정보")
     .setColor(0x03fcba)
-    .setFooter("서웉특별시교육청 제공", "https://lib.sen.go.kr/resources/homepage/common/img/ci_logo_taye3.gif");
+    .setFooter("서울특별시교육청 제공", "https://lib.sen.go.kr/resources/homepage/common/img/ci_logo_taye3.gif");
 
   richMsg.setDescription(
     `${month ? month : moment().toDate().getMonth() + 1}월 ${date}일의 학사일정은 ${calendar[date] ? calendar[date] + "입니다!" : "없습니다!"}`
