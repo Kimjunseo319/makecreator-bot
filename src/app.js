@@ -15,6 +15,7 @@ for (const file of commandFiles) {
 
 client.on("ready", () => {
   console.log(`${client.user.tag}로 로그인되었습니다!`);
+  client.user.setActivity(".급식 .일정 .월간일정", "");
 });
 
 client.on("message", (message) => {
