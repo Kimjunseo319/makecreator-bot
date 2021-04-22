@@ -1,3 +1,6 @@
+const dotenv = require("dotenv");
+dotenv.config();
+
 const Discord = require("discord.js");
 const client = new Discord.Client();
 
@@ -18,7 +21,7 @@ client.on("ready", () => {
   client.user.setActivity(".급식 .일정 .월간일정", "");
 });
 
-client.on("message", (message) => {
+client.on("message", async (message) => {
   if (!message.content.startsWith(option.command_prefix) || message.author.bot) return;
 
   const args = message.content.slice(option.command_prefix.length).trim().split(/ +/);
@@ -33,7 +36,7 @@ client.on("message", (message) => {
   }
 
   try {
-    command.execute(message, args);
+    await command.execute(message, args);
   } catch (err) {
     console.error(err);
     message.reply("그 명령을 실행할 수 없습니다!");
