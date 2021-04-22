@@ -39,7 +39,6 @@ const command = async function (message, args) {
  * @param {*} class_nm
  */
 async function sendTimeTable(message, { year, month, day }, grade, class_nm) {
-  console.log(year, month, day, grade, class_nm);
   const options = {
     method: "GET",
     url: encodeURI(
@@ -61,7 +60,6 @@ async function sendTimeTable(message, { year, month, day }, grade, class_nm) {
 
 function buildEmbed(timeTable, { month, day }) {
   const embed = new MessageEmbed();
-  console.log(timeTable);
   try {
     embed.setTitle(`${month}월 ${day}일 ${timeTable[0].GRADE}학년 ${timeTable[0].CLASS_NM}반 시간표`);
 
