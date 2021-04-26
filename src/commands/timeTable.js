@@ -8,6 +8,9 @@ moment.tz.setDefault("Asia/Seoul");
 
 const _ = require("lodash");
 
+const NodeCache = require("node-cache");
+const neisCache = new NodeCache();
+
 const { MessageEmbed } = require("discord.js");
 
 /**
@@ -39,23 +42,29 @@ const command = async function (message, args) {
  * @param {*} class_nm
  */
 async function sendTimeTable(message, { year, month, day }, grade, class_nm) {
-  const options = {
-    method: "GET",
-    url: encodeURI(
-      `https://open.neis.go.kr/hub/hisTimetable?KEY=${
-        process.env.NEIS_TOKEN
-      }&Type=json&pIndex=1&pSize=100&ATPT_OFCDC_SC_CODE=B10&SD_SCHUL_CODE=7010591&DDDEP_NM=메이커창작과&ALL_TI_YMD=${
-        year + month + day
-      }&CLASS_NM=${class_nm}&GRADE=${grade}`
-    ),
-  };
+  let timeTable = neisCache.get(grade + "-" + class_nm + "/" + year + month + day);
+  if (timeTable) {
+    message.channel.send(buildEmbed(_.uniqWith(timeTable, _.isEqual), { month, day }));
+  } else {
+    const options = {
+      method: "GET",
+      url: encodeURI(
+        `https://open.neis.go.kr/hub/hisTimetable?KEY=${
+          process.env.NEIS_TOKEN
+        }&Type=json&pIndex=1&pSize=100&ATPT_OFCDC_SC_CODE=B10&SD_SCHUL_CODE=7010591&ALL_TI_YMD=${
+          year + month + day
+        }&CLASS_NM=${class_nm}&GRADE=${grade}`
+      ),
+    };
 
-  request(options, async function (err, res) {
-    if (err) throw new Error(err);
-    const data = JSON.parse(res.body);
-    const timeTable = data?.hisTimetable?.[1].row.sort();
-    message.channel.send(buildEmbed(timeTable, { month, day }));
-  });
+    request(options, async function (err, res) {
+      if (err) throw new Error(err);
+      const data = JSON.parse(res.body);
+      timeTable = data?.hisTimetable?.[1].row;
+      neisCache.set(grade + "-" + class_nm + "/" + year + month + day, timeTable);
+      message.channel.send(buildEmbed(_.uniqWith(timeTable, _.isEqual), { month, day }));
+    });
+  }
 }
 
 function buildEmbed(timeTable, { month, day }) {
