@@ -57,13 +57,18 @@ function getFoodInfo(date) {
  */
 function getAllergy(food) {
   let allergyList = [];
-  _.each(food.allergy, (a) => {
-    const alergy = allergy[a];
-    if (alergy !== undefined) {
-      allergyList.push(alergy);
-    }
-  });
-  return Array.from(new Set(allergyList)).join(" ,");
+  if (food.allergy === null || food.allergy.length === 0) {
+    return "\u200b";
+  } else {
+    _.each(food.allergy, (a) => {
+      const alergy = allergy[a];
+      if (alergy !== undefined) {
+        allergyList.push(alergy);
+      }
+    });
+    //return Array.from(new Set(allergyList)).join(" ,");
+    return allergyList.join(" ,");
+  }
 }
 
 module.exports = {
