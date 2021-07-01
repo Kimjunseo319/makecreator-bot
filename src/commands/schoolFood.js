@@ -23,7 +23,7 @@ const allergy = {
 };
 
 const command = async function (message, args) {
-  const date = args[0] ? args[0] : moment().toDate().getDate();
+  const date = args[0] ? args[0] : moment.tz("Asia/Seoul").toDate().getDate();
   let food = await getFoodInfo(date);
   const richMsg = new MessageEmbed()
     .setTitle(date + "일 급식 정보")
@@ -66,7 +66,6 @@ function getAllergy(food) {
         allergyList.push(alergy);
       }
     });
-    //return Array.from(new Set(allergyList)).join(" ,");
     return allergyList.join(" ,");
   }
 }

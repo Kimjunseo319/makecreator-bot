@@ -14,7 +14,7 @@ const command = async function (message, args) {
   school.init(School.Type.HIGH, School.Region.SEOUL, "B100000587");
   const calendar = await school.getCalendar(moment().toDate().getFullYear(), month ? month : moment().toDate().getMonth() + 1);
   const richMsg = new MessageEmbed()
-    .setTitle((month ? month : moment().toDate().getMonth() + 1) + "월 학사일정 정보")
+    .setTitle((month ? month : moment.tz("Asia/Seoul").toDate().getMonth()) + "월 학사일정 정보")
     .setColor(0x03fcba)
     .setFooter("서울특별시교육청 제공", "https://lib.sen.go.kr/resources/homepage/common/img/ci_logo_taye3.gif");
 
